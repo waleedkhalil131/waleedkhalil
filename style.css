@@ -1,0 +1,311 @@
+/* =========================================
+   1. الإعدادات العامة (العمق واللون الأساسي)
+   ========================================= */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #020202;
+    
+    /* ركز هنا: ضفنا النقطتين عشان يخرج بره مجلد الـ css ويدور على الصورة بره */
+    /* ودمجنا التعتيم مع الصورة في سطر واحد عشان يشتغلوا سوا */
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('cover.jfif');
+    
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    color: #fff;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    min-height: 100vh;
+}/* =========================================
+   2. الهيدر والاسم المضيء (Neon Effect)
+   ========================================= */
+.cyber-hero {
+    height: 70vh; /* واخد 70% من طول الشاشة */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 20px;
+}
+
+/* السر 3: الـ "توهج" المتعدد الطبقات لاسم وليد خليل */
+.neon-name {
+    font-size: clamp(3rem, 12vw, 6rem); /* حجم مرن للموبايل */
+    margin: 0;
+    color: #fff;
+    text-transform: uppercase;
+    text-shadow: 
+        0 0 10px #00ffff, /* نيون لبني */
+        0 0 20px #00ffff,
+        0 0 40px #00ff00, /* نيون أخضر */
+        0 0 80px #00ff00;
+    letter-spacing: 5px;
+}
+
+.tagline {
+    font-size: 1.2rem;
+    color: #00ffcc;
+    margin-top: 10px;
+    margin-bottom: 40px;
+    letter-spacing: 2px;
+    opacity: 0.8;
+}
+
+/* =========================================
+   3. الزراير الفسفورية (Border Glow)
+   ========================================= */
+.cyber-nav {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.nav-link {
+    padding: 12px 25px;
+    border: 1px solid #00ffcc;
+    color: #00ffcc;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: 0.4s ease;
+    background: rgba(0, 255, 204, 0.03); /* شفافية قليلة جداً */
+}
+
+/* الزرار النشط (زي الصورة) */
+.nav-link.active {
+    background: rgba(0, 255, 204, 0.2);
+    box-shadow: 0 0 15px #00ffcc;
+}
+
+.nav-link:hover {
+    background: #00ffcc;
+    color: #000;
+    box-shadow: 0 0 30px #00ffcc;
+}
+
+/* =========================================
+   4. قسم الكورسات وتأثير الزجاج (Glassmorphism)
+   ========================================= */
+.courses-section {
+    padding: 60px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 3.5rem; /* حجم ضخم ومسيطر */
+    font-weight: 900; /* أقصى درجة عريضة للخط */
+    color: #fff;
+    margin: 80px 0 40px;
+    letter-spacing: 5px; /* مسافات بين الحروف تدي فخامة */
+    text-transform: uppercase;
+    
+    /* تأثير النيون القوي المتعدد الطبقات */
+    text-shadow: 
+        0 0 5px #fff,
+        0 0 10px #fff,
+        0 0 20px #00ffcc,
+        0 0 40px #00ffcc,
+        0 0 60px #00ffcc;
+    
+    position: relative;
+    font-family: 'Arial Black', Gadget, sans-serif; /* خط عريض جداً */
+}
+.code-simulator-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 60px auto; /* زحزحناه شوية عشان الفراغ */
+    max-width: 800px;
+}
+
+.code-window {
+    background: rgba(15, 15, 15, 0.6); /* زجاج غامق */
+    backdrop-filter: blur(15px);
+    border-radius: 12px;
+    border: 1px solid rgba(0, 255, 204, 0.3);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+    width: 100%;
+    overflow: hidden;
+}
+
+.window-header {
+    background: rgba(30, 30, 30, 0.8);
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid rgba(0, 255, 204, 0.2);
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+.red { background: #ff5f56; }
+.yellow { background: #ffbd2e; }
+.green { background: #27c93f; }
+
+.window-title {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9rem;
+    margin-left: auto;
+    font-family: monospace;
+}
+
+.code-content {
+    padding: 20px;
+    font-family: 'Courier New', Courier, monospace; /* خط برمجي */
+    font-size: 1.1rem;
+    color: #fff;
+    line-height: 1.6;
+    height: 150px; /* طول ثابت عشان الحركة */
+    overflow: hidden;
+    position: relative;
+}
+
+/* الكود نفسه هيكون لونه فسفوري مضيء */
+#typing-code {
+    color: #00ffcc;
+    text-shadow: 0 0 5px #00ffcc;
+}
+
+/* حركة المؤشر الواقف */
+.cursor {
+    color: #00ffcc;
+    animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+/* الخط المضيء اللي تحتها */
+.section-title::after {
+    content: '';
+    display: block;
+    width: 250px; /* طولناه شوية */
+    height: 4px;
+    background: #00ffcc;
+    margin: 20px auto;
+    border-radius: 10px;
+    box-shadow: 0 0 20px #00ffcc; /* توهج للخط نفسه */
+}
+
+/* إضافة خط تحت الكلمة عشان يدي شكل جمالي */
+
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(to right, transparent, #00ffcc, transparent);
+}
+
+.courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+/* الكروت الزجاجية (الجوهرة هنا) */
+.glass-card {
+    position: relative;
+    overflow: hidden;
+    transition: 0.4s ease;
+    border-radius: 20px;
+    padding: 2px; /* مسافة للـ border Glow */
+}
+
+/* السر 4: "توهج الزجاج" (Border Glow Animation) */
+.card-glow {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 204, 0.2), transparent);
+    animation: glow-move 3s infinite;
+    z-index: 1;
+}
+
+@keyframes glow-move {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+/* السر 5: "ملمس الزجاج الضبابي" (Glassmorphism) */
+.card-content {
+    background: rgba(255, 255, 255, 0.03); /* شفافية بيضاء */
+    border: 1px solid rgba(255, 255, 255, 0.05); /* إطار شفاف خفيف */
+    border-radius: 18px;
+    padding: 30px;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    /* أهم جزء: "تضبيب الخلفية" */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 2;
+    position: relative;
+}
+
+.course-icon {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 20px;
+    opacity: 0.8;
+}
+
+.card-content h3 {
+    color: #00ffcc;
+    margin: 10px 0;
+}
+
+.details-btn {
+    margin-top: auto; /* يخلي الزرار تحت خالص */
+    padding: 10px 20px;
+    border: 1px solid #00ffcc;
+    color: #00ffcc;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: 0.3s;
+}
+
+.details-btn:hover {
+    background: #00ffcc;
+    color: #000;
+}
+
+.glass-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0, 255, 204, 0.1);
+}
+/* كود طوارئ لتقليل الفراغات */
+header, .header-content {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}
+
+nav, .navbar {
+    margin-top: 5px !important;
+    margin-bottom: 10px !important;
+}
+
+.code-simulator-container {
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+}
+

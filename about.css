@@ -1,0 +1,147 @@
+/* --- تنسيقات عامة لصفحة عن المستر --- */
+body {
+    background-color: #000; /* خلفية سوداء فخمة */
+    color: #fff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* --- قسم تعريف المستر (Hero Section) --- */
+.about-hero-section {
+    padding: 120px 0 60px;
+}
+
+.about-grid {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.image-neon-border {
+    position: relative;
+    padding: 10px;
+    border: 2px solid #00ffcc; /* برواز نيون فيروزي */
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 255, 204, 0.3);
+}
+
+.main-profile-img {
+    width: 300px;
+    height: auto;
+    border-radius: 15px;
+    display: block;
+}
+
+.about-text-side {
+    flex: 1;
+    min-width: 300px;
+    text-align: right;
+}
+
+.neon-text {
+    color: #00ffcc;
+    font-size: 2.5rem;
+    text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+    margin-bottom: 10px;
+}
+
+/* --- الفاصل النيون --- */
+.cyber-divider {
+    border: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #00ffcc, transparent);
+    margin: 40px 0;
+    opacity: 0.5;
+}
+
+/* --- قسم صور الحصص (4 صور) --- */
+.section-title {
+    text-align: center;
+    color: #00ffcc;
+    margin-bottom: 40px;
+    font-size: 1.8rem;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* يضبط نفسه ليكونوا 4 جنب بعض أو تحت بعض */
+    gap: 20px;
+}
+
+.gallery-card {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: 0.4s;
+}
+
+.gallery-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover; /* لضمان تساوي أحجام الصور */
+    display: block;
+}
+
+.gallery-card:hover {
+    transform: scale(1.05);
+    border-color: #00ffcc;
+    box-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
+}
+
+/* --- قسم آراء الطلاب (سكرينات الواتساب) --- */
+.testimonials-section {
+    padding: 60px 0;
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.testimonial-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 15px;
+    border: 1px dashed rgba(0, 255, 204, 0.3);
+    text-align: center;
+    transition: 0.3s;
+}
+
+.student-ss {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.student-label {
+    color: #00ffcc;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.testimonial-card:hover {
+    background: rgba(0, 255, 204, 0.05);
+    border-style: solid;
+    border-color: #00ffcc;
+}
+
+/* لتوافق الموبايل */
+@media (max-width: 768px) {
+    .about-grid {
+        flex-direction: column;
+        text-align: center;
+    }
+    .about-text-side {
+        text-align: center;
+    }
+}
