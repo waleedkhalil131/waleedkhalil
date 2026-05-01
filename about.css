@@ -134,14 +134,3 @@ body {
     border-style: solid;
     border-color: #00ffcc;
 }
-
-/* لتوافق الموبايل */
-@media (max-width: 768px) {
-    .about-grid {
-        flex-direction: column;
-        text-align: center;
-    }
-    .about-text-side {
-        text-align: center;
-    }
-}

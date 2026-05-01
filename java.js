@@ -1,43 +1,75 @@
-// نصوص الكود اللي هتتعرض وتتغير
-const codeSnippets = [
-    "print('Hello, Code Masters!')",
-    "def learn_ai(student):",
-    "   return student.skill + ' ++'",
-    "while not successful:",
-    "   code_everyday()",
-    "print('Level Up your Future!')"
-];
+// 1. وظيفة العداد (تحديث الوقت كل ثانية)
+function updateTimer() {
+    // التاريخ مضبوط ليكون متبقي 9 أيام من تاريخ 1 مايو 2026
+    const examDate = new Date("May 10, 2026 00:00:00").getTime(); 
+    const now = new Date().getTime();
+    const diff = examDate - now;
 
-const typingCode = document.getElementById('typing-code');
-let snippetIndex = 0;
-let charIndex = 0;
-let isDeleting = false;
+    const timerElement = document.getElementById("timer");
+    if (!timerElement) return;
 
-function type() {
-    const currentSnippet = codeSnippets[snippetIndex];
-    
-    if (isDeleting) {
-        typingCode.textContent = currentSnippet.substring(0, charIndex - 1);
-        charIndex--;
-    } else {
-        typingCode.textContent = currentSnippet.substring(0, charIndex + 1);
-        charIndex++;
+    if (diff <= 0) {
+        timerElement.innerHTML = "بدأ الامتحان! بالتوفيق";
+        return;
     }
 
-    if (!isDeleting && charIndex === currentSnippet.length) {
-        // خلص كتابة، استنى شوية قبل ما تمسح
-        isDeleting = true;
-        setTimeout(type, 2000);
-    } else if (isDeleting && charIndex === 0) {
-        // خلص مسح، انقل للكود اللي بعده
-        isDeleting = false;
-        snippetIndex = (snippetIndex + 1) % codeSnippets.length;
-        setTimeout(type, 500);
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+    timerElement.innerHTML = `
+        <span>${seconds} ثانية</span>
+        <span>${minutes} دقيقة</span>
+        <span>${hours} ساعة</span>
+        <span>${days} يوم</span>
+    `;
+}
+
+// 2. وظيفة كتابة الأسطر بشكل متكرر (Loop)
+const codeLines = [
+    "class WaleedKhalil {",
+    "  constructor() {",
+    "    this.subject = 'Programming & AI';",
+    "    this.location = 'Port Said';",
+    "  }",
+    "}"
+];
+
+let lineNo = 0;
+let charNo = 0;
+
+function startTyping() {
+    // التأكد من استخدام نفس الـ ID الموجود في سطر 38 بملف HTML
+    const display = document.getElementById("typing-code"); 
+    if (!display) return;
+
+    if (lineNo < codeLines.length) {
+        let currentLineText = codeLines[lineNo];
+        if (charNo < currentLineText.length) {
+            display.innerHTML += currentLineText.charAt(charNo);
+            charNo++;
+            setTimeout(startTyping, 50); // سرعة كتابة الحروف
+        } else {
+            display.innerHTML += "\n"; // الانتقال لسطر جديد
+            lineNo++;
+            charNo = 0;
+            setTimeout(startTyping, 500); // وقفة بسيطة بين الأسطر
+        }
     } else {
-        // سرعة الكتابة والمسح
-        setTimeout(type, isDeleting ? 50 : 100);
+        // الانتظار 3 ثوانٍ بعد اكتمال الكود ثم المسح والإعادة
+        setTimeout(() => {
+            display.innerHTML = ""; 
+            lineNo = 0;
+            charNo = 0;
+            startTyping();
+        }, 3000);
     }
 }
 
-// ابدأ الحركة
-type();
+// 3. تشغيل العداد والكتابة فور تحميل الصفحة
+document.addEventListener("DOMContentLoaded", function() {
+    setInterval(updateTimer, 1000);
+    updateTimer();
+    startTyping();
+});

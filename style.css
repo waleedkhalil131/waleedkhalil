@@ -308,4 +308,95 @@ nav, .navbar {
     margin-top: 10px !important;
     margin-bottom: 10px !important;
 }
+/* 1. تنسيق العداد - هيظهر في الكمبيوتر والموبايل */
+.exam-timer {
+    text-align: center !important;
+    width: 100% !important;
+    margin: 40px 0 !important;
+    display: block !important;
+}
+.timer-display span {
+    color: #00ffcc !important;
+    font-size: 1.2rem !important; /* السطر 320 المعدل */
+    font-weight: bold !important;
+    text-shadow: 0 0 15px #00ffcc;
+    white-space: nowrap !important; /* إضافة لضمان سطر واحد */
+}
+@media screen and (max-width: 600px) {
+    .hero-section h1, .hero h1, h1 {
+        font-size: 1.6rem !important;
+        white-space: normal !important;
+        text-align: center !important;
+        display: block !important;
+    }
+} /* ده القوس اللي بيقفل الميديا، اتأكد إنه واحد بس */
+/* تنسيق زراير القائمة الاحترافي */
+.cyber-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap; /* عشان الزراير تنزل تحت بعضها لو المساحة ضاقت */
+    gap: 8px; /* المسافة بين الزراير */
+    padding: 10px;
+    width: 100%;
+}
 
+.nav-link {
+    text-decoration: none;
+    color: #00ffcc;
+    border: 1px solid #00ffcc;
+    padding: 8px 12px; /* تصغير الحشو شوية عشان المساحة */
+    border-radius: 5px;
+    font-size: 0.9rem; /* تصغير الخط بسيط للموبايل */
+    white-space: nowrap; /* يمنع الكلمة تنقسم على سطرين */
+    transition: 0.3s ease-in-out;
+    background: rgba(0, 255, 204, 0.05);
+}
+
+.nav-link:hover, .nav-link.active {
+    background: #00ffcc;
+    color: #000;
+    box-shadow: 0 0 15px #00ffcc;
+}
+
+/* تعديل خاص للشاشات الصغيرة جداً (الموبايل) */
+@media (max-width: 480px) {
+    .nav-link {
+        padding: 6px 10px;
+        font-size: 0.85rem;
+        flex: 1 1 auto; /* يخلي الزراير توزع نفسها بالتساوي */
+        text-align: center;
+    }
+}
+/* الحل النهائي لمشكلة تأكل الكلام */
+* {
+    box-sizing: border-box; /* بيخلي الحسابات دقيقة للمساحة */
+}
+
+html, body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* بيقفل أي حركة بالعرض نهائياً */
+}
+
+/* ضبط أي حاوية شايلة الكلام */
+section, div, .container {
+    max-width: 100vw !important; /* ممنوع تخرج بره عرض الشاشة */
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+/* تصغير الخطوط في الموبايل عشان متبقاش ضخمة */
+@media (max-width: 480px) {
+    p, span, li {
+        font-size: 0.95rem !important; /* حجم مناسب للموبايل */
+        line-height: 1.5;
+        word-break: break-word; /* بيكسر الكلمات الطويلة */
+    }
+    
+    h1 { font-size: 1.6rem !important; }
+    h2 { font-size: 1.3rem !important; }
+}
