@@ -400,3 +400,21 @@ section, div, .container {
     h1 { font-size: 1.6rem !important; }
     h2 { font-size: 1.3rem !important; }
 }
+.download-btn {
+    display: inline-block;
+    padding: 15px 30px;
+    background-color: #00ffcc;
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 50px;
+    box-shadow: 0 0 20px rgba(0, 255, 204, 0.4);
+    transition: 0.3s;
+    font-size: 1.1rem;
+}
+
+.download-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px #00ffcc;
+    background-color: #fff;
+}
