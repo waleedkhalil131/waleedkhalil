@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>روابط مستر وليد خليل</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .back-btn {
+    text-decoration: none;
+    color: #00f3ff; /* نيون أزرق عشان يبان */
+    font-size: 1rem;
+    font-weight: bold;
+    border: 2px solid #00f3ff;
+    padding: 10px 20px;
+    border-radius: 30px;
+    background: rgba(0, 243, 255, 0.1);
+    transition: 0.3s;
+    box-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.back-btn:hover {
+    background: #00f3ff;
+    color: #000;
+    box-shadow: 0 0 20px #00f3ff;
+}
+        :root {
+            --primary-bg: #0a0a0b;
+            --neon-blue: #00f3ff;
+            --neon-gold: #ffcf00;
+            --neon-purple: #bc13fe;
+            --neon-green: #25d366;
+            --card-bg: rgba(255, 255, 255, 0.05);
+        }
+        body {
+            background-color: var(--primary-bg);
+            color: white;
+            font-family: 'Cairo', sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-image: radial-gradient(circle at center, #1a1a2e 0%, #0a0a0b 100%);
+        }
+        .container {
+            width: 90%;
+            max-width: 450px;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .profile-section {
+            margin-bottom: 30px;
+        }
+
+        .profile-img {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            border: 3px solid var(--neon-blue);
+            box-shadow: 0 0 20px var(--neon-blue);
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-size: 1.4rem;
+            margin: 10px 0;
+            color: white;
+            text-shadow: 0 0 10px rgba(255,255,255,0.3);
+        }
+
+        .links-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .link-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            text-decoration: none;
+            color: white;
+            background: var(--card-bg);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 15px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .link-item:hover {
+            transform: translateY(-3px);
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* تنسيق الألوان الخاص بكل زرار */
+        .kiryo { border-right: 5px solid var(--neon-blue); }
+        .kiryo:hover { box-shadow: 0 0 15px var(--neon-blue); border-color: var(--neon-blue); }
+
+        .school-book { border-right: 5px solid var(--neon-gold); }
+        .school-book:hover { box-shadow: 0 0 15px var(--neon-gold); border-color: var(--neon-gold); }
+
+        .tofas { border-right: 5px solid var(--neon-purple); }
+        .tofas:hover { box-shadow: 0 0 15px var(--neon-purple); border-color: var(--neon-purple); }
+
+        .whatsapp { border-right: 5px solid var(--neon-green); }
+        .whatsapp:hover { box-shadow: 0 0 15px var(--neon-green); border-color: var(--neon-green); }
+
+        .footer-text {
+            margin-top: 40px;
+            font-size: 0.8rem;
+            color: #666;
+            letter-spacing: 1px;
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-header">
+    <a href="index.html" class="back-btn">🏠 العودة للرئيسية</a>
+    </div>
+    <div class="container">
+        <div class="profile-section">
+            <img src="11.png" alt="مستر وليد خليل" class="profile-img">
+            <h1>مستر وليد خليل</h1>
+            <p style="color: #00f3ff; font-size: 0.9rem;">معلم الكمبيوتر والبرمجة والذكاء الاصطناعي</p>
+        </div>
+
+        <div class="links-wrapper">
+            <a href="https://me-portal.qureo.education/login" target="_blank" class="link-item kiryo">🌐 منصة كيريو التعليمية</a>
+            
+            <a href="https://ellibrary.moe.gov.eg/books/" target="_blank" class="link-item school-book">📖 تحميل كتاب المدرسة</a>
+            
+            <a href="https://sprixportal.jp/" target="_blank" class="link-item tofas">📝 امتحان منصة توفاس (TOFAS)</a>
+            
+            <a href="https://wa.me/201022543309" target="_blank" class="link-item whatsapp">💬 تواصل واتساب مع المستر</a>
+        </div>
+
+        <div class="footer-text">
+            © 2026 مبرمج بواسطة مستر وليد خليل
+        </div>
+    </div>
+
+</body>
+</html>
