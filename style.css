@@ -476,3 +476,28 @@ section, div, .container {
         display: inline-block;
     }
 }
+@media (max-width: 480px) {
+    /* تصغير حجم الهيدر */
+    .neon-name {
+        font-size: 1.8rem !important;
+    }
+
+    /* تخلي القائمة تحت بعضها بدل ما هي واسعة بالعرض */
+    .cyber-nav {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    /* تصغير حجم العداد عشان م يخرجش بره الشاشة */
+    .timer-display {
+        font-size: 1rem !important;
+        padding: 10px;
+    }
+
+    /* منع الموقع من الحركة يمين وشمال */
+    body, html {
+        overflow-x: hidden;
+        width: 100%;
+    }
+}
