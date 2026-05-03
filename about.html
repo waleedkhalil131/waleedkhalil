@@ -3,93 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>عن المستر - وليد خليل</title>
-    <!-- ربط مكتبة الأيقونات -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- ربط الملفات التنسيقية -->
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="about.css?v=1.1">
+    <title>عن المستر | وليد خليل</title>
+    <style>
+        /* --- كود الاستايل (البروباجندا والنيون) --- */
+        body {
+            background-color: #0a0b10;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0; padding: 0; direction: rtl; overflow-x: hidden;
+        }
+
+        .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+
+        /* زر العودة */
+        .back-btn {
+            text-decoration: none; color: #00f3ff; border: 2px solid #00f3ff;
+            padding: 8px 20px; border-radius: 20px; display: inline-block; margin-bottom: 20px;
+        }
+
+        /* الهيدر التعريفي */
+        .hero-section {
+            display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+            gap: 30px; background: rgba(255, 255, 255, 0.02); padding: 20px;
+            border-radius: 15px; border: 1px solid #00f3ff;
+        }
+
+        .hero-content { flex: 1; min-width: 300px; }
+        
+        /* ضبط حجم صورة القهوة / البروفايل الشخصي */
+        .main-img-neon {
+            width: 250px !important; height: 250px !important;
+            object-fit: cover; border-radius: 15px; border: 2px solid #00f3ff;
+        }
+
+        .neon-text { color: #00f3ff; text-shadow: 0 0 10px #00f3ff; font-size: 1.8rem; margin: 0; }
+        .history-tag { color: #ffcf00; font-weight: bold; margin-bottom: 10px; }
+
+        /* معرض الـ 8 صور (لقطات الحصص) */
+        .image-gallery-8 {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px; margin: 30px 0;
+        }
+
+        .image-gallery-8 img {
+            width: 100%; height: 160px; object-fit: cover;
+            border-radius: 10px; border: 1px solid #00f3ff; transition: 0.3s;
+        }
+
+        /* سكرينات الواتساب (الـ 5 آراء) */
+        .reviews-whatsapp-grid {
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 15px;
+        }
+
+        .reviews-whatsapp-grid img {
+            width: 180px; height: auto; border-radius: 12px; border: 2px solid #25d366;
+        }
+
+        .section-title { color: #ffcf00; text-align: center; margin: 40px 0 20px; border-bottom: 2px solid #00f3ff; padding-bottom: 10px; }
+
+        /* ضبط الفيديو */
+        .video-container { width: 100%; max-width: 600px; margin: 20px auto; border: 2px solid #00f3ff; border-radius: 10px; overflow: hidden; }
+
+        @media (max-width: 600px) { .hero-section { flex-direction: column-reverse; text-align: center; } }
+    </style>
 </head>
 <body>
 
-    <!-- القائمة العلوية -->
-    <header class="cyber-nav">
-        <nav>
-            <a href="index.html" class="nav-link">الرئيسية</a>
-            <a href="course.html" class="nav-link">الكورسات</a>
-            <a href="about.html" class="nav-link active">عن المستر</a>
-            <a href="contact.html" class="nav-link">اتصل بنا</a>
-        </nav>
+<div class="container">
+    <a href="index.html" class="back-btn">🏠 العودة للرئيسية</a>
+
+    <header class="hero-section">
+        <div class="hero-content">
+            <h1 class="neon-text">المستر وليد خليل</h1>
+            <p class="history-tag">اسم له تاريخ في عالم التكنولوجيا</p>
+            <p>🏅 خبرة أكثر من 24 عاماً منذ 2002.</p>
+            <p>🤖 متخصص في (Java, JavaScript) والذكاء الاصطناعي.</p>
+            <p>🏛️ مدرسة بورسعيد العسكرية.</p>
+        </div>
+        <img src="waleed.jpg" class="main-img-neon">
     </header>
 
-    <!-- 1. قسم صورة المستر والبروبجاندا التعريفية -->
-    <section class="about-hero-section container">
-        <div class="about-grid">
-            <div class="about-image-side">
-                <div class="image-neon-border">
-                    <img src="waleed.jpg" alt="مستر وليد خليل" class="main-profile-img">
-                </div>
-            </div>
-            <div class="about-text-side">
-                <h1 class="neon-text">المستر وليد خليل</h1>
-                <h3 style="color: #00ffcc; margin-bottom: 20px;">اسم له تاريخ في عالم التكنولوجيا</h3>
-                
-                <div class="bio-content" style="text-align: right; line-height: 1.8;">
-                    <p style="font-size: 1.2rem; color: #fff;">
-                        <i class="fas fa-award" style="color: #00ffcc;"></i> 
-                        <b>خبرة تمتد لأكثر من 24 عاماً:</b> منذ عام 2002 ونحن نبني أجيالاً في تكنولوجيا المعلومات وإدارة الأنظمة.
-                    </p>
-                    <p style="font-size: 1.2rem; color: #fff;">
-                        <i class="fas fa-microchip" style="color: #00ffcc;"></i> 
-                        <b>رائد تدريس الذكاء الاصطناعي:</b> متخصص في لغات البرمجة الحديثة (Java, JavaScript) وتقنيات البيانات الضخمة (Big Data).
-                    </p>
-                    <p style="font-size: 1.2rem; color: #fff;">
-                        <i class="fas fa-university" style="color: #00ffcc;"></i> 
-                        <b>البصمة التعليمية:</b> من قلب مدرسة بورسعيد العسكرية، نقدم منهجاً يدمج بين الانضباط وأحدث صيحات التكنولوجيا العالمية.
-                    </p>
-                    <p style="font-size: 1.1rem; color: #00ffcc; font-style: italic; margin-top: 20px;">
-                        "نحن لا ندرس البرمجة فقط.. نحن نصنع مهندسي المستقبل."
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <h2 class="section-title">📽️ الفيديو التعريفي</h2>
+    <div class="video-container">
+        <iframe width="100%" height="315" src="video.mp4" frameborder="0" allowfullscreen></iframe>
+    </div>
 
-    <hr class="cyber-divider">
+    <h2 class="section-title">📸 لقطات من داخل الحصص </h2>
+    <div class="image-gallery-8">
+        <img src="a1.jfif"> <img src="a2.jfif"> <img src="a3.jfif"> <img src="a4.jfif">
+        <img src="a5.jfif"> <img src="a6.jfif"> <img src="a7.jfif"> <img src="a8.jfif">
+    </div>
 
-    <!-- 2. قسم صور الحصص (4 صور) -->
-    <section class="gallery-section container">
-        <h2 class="section-title">لقطات من داخل الحصص</h2>
-        <div class="gallery-grid">
-            <div class="gallery-card">
-                <img src="a3.jfif" alt="حصة 1" class="gallery-img">
-            </div>
-            <div class="gallery-card">
-                <img src="a4.jfif" alt="حصة 2" class="gallery-img">
-            </div>
-            <div class="gallery-card">
-                <img src="a2.jfif" alt="حصة 3" class="gallery-img">
-            </div>
-            <div class="gallery-card">
-                <img src="a5.jfif" alt="حصة 4" class="gallery-img">
-            </div>
-        </div>
-    </section>
-
-    <!-- 3. قسم آراء الطلاب (سكرينات الواتساب) -->
-    <section class="testimonials-section container">
-        <h2 class="section-title">ثقة وآراء طلابنا</h2>
-        <div class="testimonials-grid">
-            <div class="testimonial-card">
-                <img src="a1.jfif" alt="رأي طالب 1" class="student-ss">
-                <span class="student-label">آراء الطلاب <i class="fas fa-check-circle"></i></span>
-            </div>
-            <div class="testimonial-card">
-                <img src="a6.jfif" alt="رأي طالب 2" class="student-ss">
-                <span class="student-label">آراء الطلاب <i class="fas fa-check-circle"></i></span>
-            </div>
-        </div>
-    </section>
+    <h2 class="section-title">💬 ثقة وآراء طلابنا </h2>
+    <div class="reviews-whatsapp-grid">
+        <img src="b1.jfif"> <img src="b2.jfif"> <img src="b3.jfif"> 
+        <img src="b4.jfif"> <img src="b5.jfif">
+    </div>
+</div>
 
 </body>
 </html>
