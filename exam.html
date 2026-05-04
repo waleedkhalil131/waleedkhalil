@@ -174,6 +174,51 @@
 
         .options-scroll-panel::-webkit-scrollbar { width: 6px; }
         .options-scroll-panel::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
+        @media (max-width: 768px) {
+    .main-layout {
+        flex-direction: column; /* يجعل السؤال والاختيارات تحت بعض */
+        overflow-y: auto;
+    }
+    .question-fixed-panel, .options-scroll-panel {
+        flex: none; /* يلغي التقسيم المئوي القديم */
+        width: 100%;
+    }
+    .option-card {
+        font-size: 0.85rem; /* تصغير الخط قليلاً ليتناسب مع الموبايل */
+        padding: 15px;
+    }
+}
+/* تنسيق خاص بالموبايل فقط */
+@media (max-width: 600px) {
+    .main-layout {
+        flex-direction: column; /* يخلي السؤال والاختيارات تحت بعض */
+        overflow-y: auto; /* يسمح بالسكرول للصفحة كلها */
+    }
+
+    .question-fixed-panel {
+        flex: none;
+        width: 100%;
+        order: 1; /* السؤال يظهر الأول فوق */
+    }
+
+    .options-scroll-panel {
+        flex: none;
+        width: 100%;
+        order: 2; /* الاختيارات تظهر تحت السؤال */
+        height: auto;
+        overflow-y: visible;
+    }
+
+    .result-inner {
+        font-size: 1.1rem; /* تصغير الخط شوية عشان ميهزرش من الحاوية */
+        padding: 10px;
+    }
+
+    .option-card {
+        font-size: 0.85rem;
+        padding: 15px;
+    }
+}
     </style>
 </head>
 <body>
