@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إختبار البرمجة - مستر وليد خليل</title>
+    <style>
+        :root {
+            --primary-blue: #1a73e8;
+            --bg-body: #f1f3f4;
+            --gold: #d4af37;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background-color: var(--bg-body);
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .header {
+            background: var(--primary-blue);
+            color: white;
+            padding: 10px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 60px;
+            flex-shrink: 0;
+        }
+
+        .main-layout {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+            gap: 15px;
+            padding: 15px;
+            box-sizing: border-box;
+        }
+
+        .question-fixed-panel {
+            flex: 0.6; 
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .question-section {
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .question-title {
+            background: var(--primary-blue);
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .result-display {
+            padding: 20px 15px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .result-inner {
+            border: 2px dashed var(--primary-blue);
+            padding: 15px 25px;
+            text-align: center;
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #222;
+            border-radius: 10px;
+            background: #fdfdfd;
+            width: 90%;
+            white-space: pre-wrap;
+        }
+
+        .options-scroll-panel {
+            flex: 1.4; 
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding-left: 10px;
+        }
+
+        .option-card {
+            background: white;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            position: relative;
+            cursor: pointer;
+            direction: ltr;
+            font-family: 'Consolas', monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            white-space: pre-wrap; 
+            word-break: break-all;
+            transition: 0.2s;
+        }
+
+        .option-card:hover { border-color: var(--primary-blue); }
+
+        .option-card.selected { 
+            border: 4px solid var(--primary-blue); 
+            background: #f0f7ff;
+        }
+
+        .q-number {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: var(--primary-blue);
+            color: white;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.75rem;
+        }
+
+        .footer {
+            height: 70px;
+            background: white;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+            flex-shrink: 0;
+        }
+
+        .btn-next {
+            background: #34a853;
+            color: white;
+            border: none;
+            padding: 10px 50px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        #certificateOverlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .certificate {
+            background: white;
+            width: 500px;
+            padding: 30px;
+            border: 12px solid var(--primary-blue);
+            outline: 4px solid var(--gold);
+            outline-offset: -10px;
+            text-align: center;
+        }
+
+        .options-scroll-panel::-webkit-scrollbar { width: 6px; }
+        .options-scroll-panel::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div style="display:flex; align-items:center; gap:10px">
+        <img src="11.png" width="35" style="border-radius:50%">
+        <span style="font-weight:bold">مستر وليد خليل</span>
+    </div>
+    <div style="font-weight:bold">سؤال <span id="qIdxDisp">1</span> / 5</div>
+    <div id="timer" style="font-family:monospace; font-size:1.1rem">20:00</div>
+</div>
+
+<div class="main-layout">
+    <div class="options-scroll-panel" id="optionsContainer"></div>
+
+    <div class="question-fixed-panel">
+        <div class="question-section">
+            <div class="question-title">ما الكود الذي يعطي النتيجة التالية؟</div>
+            <div class="result-display">
+                <div class="result-inner" id="targetText"></div>
+            </div>
+        </div>
+        <p style="text-align:center; color:#777; font-size:0.9rem;">إعداد مستر وليد خليل</p>
+    </div>
+</div>
+
+<div class="footer">
+    <div style="font-weight:bold; color:#555">مادة البرمجة والذكاء الاصطناعي</div>
+    <button class="btn-next" id="nextBtn" style="visibility:hidden" onclick="handleNext()">التالي ⮕</button>
+</div>
+
+<div id="certificateOverlay">
+    <div class="certificate">
+        <h1 style="color:var(--primary-blue)">شهادة تقدير</h1>
+        <p>يحيي مستر وليد خليل بطل البرمجة</p>
+        <h2 style="border-bottom:2px solid #333; display:inline-block; padding:0 20px" id="studentName">طالب متميز</h2>
+        <p>الدرجة النهائية: <span id="certScore">0</span> / 5</p>
+        <button onclick="location.reload()" style="padding:10px 30px; cursor:pointer; background:var(--primary-blue); color:white; border:none;">خروج</button>
+    </div>
+</div>
+
+<script>
+    const questions = [
+        {
+            target: "هذا القطار متجه إلى المحطة B",
+            options: [
+                `let trainCode = "A123";\nlet destination = "المحطة B";\n\nconsole.log("هذا القطار متجه إلى" + destination);\nif ((destination == "المحطة B") || (trainCode == "B456")) {\n  console.log("هذا القطار لا يتوقف في المحطة A");\n}`,
+                `let trainCode = "A123";\nlet destination = "المحطة B";\n\nconsole.log("هذا القطار متجه إلى" + destination);\nif ((destination == "المحطة B") && (trainCode == "B456")) {\n  console.log("هذا القطار لا يتوقف في المحطة A");\n}`,
+                `let trainCode = "A123";\nlet destination = "المحطة B";\n\nconsole.log("هذا القطار متجه إلى" destination);\nif ((destination == "المحطة B") || (trainCode == "B456")) {\n  console.log("هذا القطار لا يتوقف في المحطة A");\n}`,
+                `let trainCode = "A123";\nlet destination = "المحطة B";\n\nconsole.log("هذا القطار متجه إلى" destination);\nif ((destination == "المحطة B") && (trainCode == "B456")) {\n  console.log("هذا القطار لا يتوقف في المحطة A");\n}`
+            ],
+            correct: 0
+        },
+        {
+            target: "حالة العمل: يوم عمل",
+            options: [
+                `let closedDay = "15";\nlet today = "20";\nlet salesStatus = "يوم إغلاق اعتيادي";\n\nif (today == closedDay) {\n  salesStatus = "يوم عمل";\n}\nconsole.log("حالة العمل: " + salesStatus);`,
+                `let closedDay = "15";\nlet today = "20";\nlet salesStatus = "يوم إغلاق اعتيادي";\n\nif (!(today == closedDay)) {\n  salesStatus = "يوم عمل";\n}\nconsole.log("حالة العمل: " + salesStatus);`,
+                `let closedDay = "15";\nlet today = "20";\nlet salesStatus = "يوم إغلاق اعتيادي";\n\nif (today == closedDay) {\n  salesStatus = "يوم عمل";\n}\nconsole.log("حالة العمل: " salesStatus);`,
+                `let closedDay = "15";\nlet today = "20";\nlet salesStatus = "يوم إغلاق اعتيادي";\n\nif (!(today == closedDay)) {\n  salesStatus = "يوم عمل";\n}\nconsole.log("حالة العمل: " salesStatus);`
+            ],
+            correct: 1
+        },
+        {
+            target: "وصل مستوى البطارية إلى 10%\nيرجى شحن الجهاز",
+            options: [
+                `let currentBatteryColor = "أحمر";\nlet fullyChargedBatteryColor = "أزرق";\nlet lowBatteryLevel = "10%";\n\nif (currentBatteryColor != fullyChargedBatteryColor) {\n  console.log("وصل مستوى البطارية إلى" + lowBatteryLevel);\n  console.log("يرجى شحن الجهاز");\n} else {\n  console.log("مستوى البطارية كافٍ");\n}`,
+                `let currentBatteryColor = "أحمر";\nlet fullyChargedBatteryColor = "أزرق";\nlet lowBatteryLevel = "10%";\n\nif (currentBatteryColor != fullyChargedBatteryColor) {\n  console.log("وصل مستوى البطارية إلى" + " lowBatteryLevel");\n  console.log("يرجى شحن الجهاز");\n} else {\n  console.log("مستوى البطارية كافٍ");\n}`,
+                `let currentBatteryColor = "أحمر";\nlet fullyChargedBatteryColor = "أزرق";\nlet lowBatteryLevel = "10%";\n\nif (currentBatteryColor == fullyChargedBatteryColor) {\n  console.log("وصل مستوى البطارية إلى" + lowBatteryLevel);\n  console.log("يرجى شحن الجهاز");\n} else {\n  console.log("مستوى البطارية كافٍ");\n}`,
+                `let currentBatteryColor = "أحمر";\nlet fullyChargedBatteryColor = "أزرق";\nlet lowBatteryLevel = "10%";\n\nif (currentBatteryColor == fullyChargedBatteryColor) {\n  console.log("وصل مستوى البطارية إلى" + " lowBatteryLevel");\n  console.log("يرجى شحن الجهاز");\n} else {\n  console.log("مستوى البطارية كافٍ");\n}`
+            ],
+            correct: 0
+        },
+        {
+            target: "سيتم إرشادك إلى الغرفة الكبيرة\nاليوم يوجد خصم على المشروبات",
+            options: [
+                `let guestCount = 14;\nlet visitDay = "يوم عمل";\n\nif ((guestCount >= 8) && (guestCount <= 16)) {\n  console.log("سيتم إرشادك إلى الغرفة الكبيرة");\n}\nif (!(visitDay == "عطلة")) {\n  console.log("اليوم يوجد خصم على المشروبات");\n}`,
+                `let guestCount = 14;\nlet visitDay = "يوم عمل";\n\nif ((guestCount >= 8) (guestCount <= 16)) {\n  console.log("سيتم إرشادك إلى الغرفة الكبيرة");\n}\nif (!(visitDay == "عطلة")) {\n  console.log("اليوم يوجد خصم على المشروبات");\n}`,
+                `let guestCount = 14;\nlet visitDay = "يوم عمل";\n\nif ((guestCount >= 8) && (guestCount <= 16)) {\n  console.log("سيتم إرشادك إلى الغرفة الكبيرة");\n}\nif (visitDay == "عطلة") {\n  console.log("اليوم يوجد خصم على المشروبات");\n}`,
+                `let guestCount = 14;\nlet visitDay = "يوم عمل";\n\nif ((guestCount >= 8) (guestCount <= 16)) {\n  console.log("سيتم إرشادك إلى الغرفة الكبيرة");\n}\nif (visitDay == "عطلة") {\n  console.log("اليوم يوجد خصم على المشروبات");\n}`
+            ],
+            correct: 0
+        },
+        {
+            target: "طماطم غير متوفرة\nالمكونات المتوفرة في المتجر كما يلي\nملفوف\nبروكسي\nكرفس",
+            options: [
+                `let ingredients = ["طماطم", "ملفوف", "بروكسي", "كرفس"];\nlet soldOutIngredient = "طماطم";\n\nconsole.log(soldOutIngredient + " غير متوفرة ");\nconsole.log("المكونات المتوفرة في المتجر كما يلي");\nfor (let i = 0; i < 4; i++) {\n  if (!(ingredients[i] == soldOutIngredient)) {\n    console.log(ingredients[i]);\n  }\n}`,
+                `let ingredients = ["طماطم", "ملفوف", "بروكسي", "كرفس"];\nlet soldOutIngredient = "طماطم";\n\nconsole.log(soldOutIngredient + " غير متوفرة ");\nconsole.log("المكونات المتوفرة في المتجر كما يلي");\nfor (let i = 0; i < 4; i++) {\n  if ((ingredients[i] == soldOutIngredient)) {\n    console.log(ingredients[i]);\n  }\n}`,
+                `let ingredients = ["طماطم", "ملفوف", "بروكسي", "كرفس"];\nlet soldOutIngredient = "طماطم";\n\nconsole.log(soldOutIngredient + " غير متوفرة ");\nconsole.log("المكونات المتوفرة في المتجر كما يلي");\nfor (let i = 0; i < 4; i++) {\n  if (!(ingredients[i] == soldOutIngredient)) {\n    console.log(ingredients[i]);\n  }\n}`,
+                `let ingredients = ["طماطم", "ملفوف", "بروكسي", "كرفس"];\nlet soldOutIngredient = "طماطم";\n\nconsole.log(soldOutIngredient + " غير متوفرة ");\nconsole.log("المكونات المتوفرة في المتجر كما يلي");\nfor (let i = 0; i < 4; i++) {\n  if (ingredients[i] == soldOutIngredient) {\n    console.log(ingredients[i]);\n  }\n}`
+            ],
+            correct: 2
+        }
+    ];
+
+    let current = 0;
+    let score = 0;
+    let selectedIdx = null;
+
+    function load() {
+        const q = questions[current];
+        document.getElementById('targetText').innerText = q.target;
+        document.getElementById('qIdxDisp').innerText = current + 1;
+        document.getElementById('nextBtn').style.visibility = 'hidden';
+        
+        const container = document.getElementById('optionsContainer');
+        container.innerHTML = '';
+        
+        q.options.forEach((opt, i) => {
+            const card = document.createElement('div');
+            card.className = 'option-card';
+            card.innerHTML = `<div class="q-number">${i+1}</div>${opt}`;
+            card.onclick = () => {
+                document.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+                card.classList.add('selected');
+                selectedIdx = i;
+                document.getElementById('nextBtn').style.visibility = 'visible';
+            };
+            container.appendChild(card);
+        });
+        container.scrollTop = 0;
+    }
+
+    function handleNext() {
+        if(selectedIdx === questions[current].correct) score++;
+        if(current < questions.length - 1) {
+            current++;
+            selectedIdx = null;
+            load();
+        } else {
+            document.getElementById('certScore').innerText = score;
+            document.getElementById('certificateOverlay').style.display = 'flex';
+        }
+    }
+
+    load();
+</script>
+</body>
+</html>
