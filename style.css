@@ -476,3 +476,15 @@ section, div, .container {
         display: inline-block;
     }
 }
+.supervisor-line {
+    color: #00ffcc; /* اللون الأخضر الفسفوري */
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+    margin: 20px 0;
+    text-shadow: 0 0 10px rgba(0, 255, 204, 0.5); /* تأثير تنوير خفيف */
+    letter-spacing: 1px;
+    border-right: 4px solid #00ffcc; /* خط جانبي يعطي شكل برمجي */
+    padding-right: 15px;
+    display: inline-block;
+}
