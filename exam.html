@@ -154,25 +154,66 @@
     /* تأكد إنه مش fixed عشان يظهر في مكانه الجديد */
     position: static !important; 
 }
-        #certificateOverlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-        }
+        /* تنسيق الشهادة بالكامل */
+.certificate {
+    background: #ffffff;
+    border: 8px double #007bff; /* برواز شيك مزدوج */
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.2); /* ظل عشان الشهادة تبرز */
+    padding: 40px;
+    border-radius: 10px;
+    text-align: center;
+    position: relative;
+    max-width: 90%;
+    margin: auto;
+    border: 10px double #007bff; /* برواز أزرق مزدوج فخم */
+    padding: 50px; /* مساحة داخلية أكبر عشان الكلام يتنفس */
+    background-image: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), 
+                      url('https://www.transparenttextures.com/patterns/white-paper.png'); /* ملمس ورقي خفيف */
+    box-shadow: 0 0 30px rgba(0,0,0,0.1); /* ظل خفيف خلف الشهادة */
+}
 
-        .certificate {
-            background: white;
-            width: 500px;
-            padding: 30px;
-            border: 12px solid var(--primary-blue);
-            outline: 4px solid var(--gold);
-            outline-offset: -10px;
-            text-align: center;
-        }
+/* تنسيق اسم الطالب */
+#studentNameDisplay {
+    display: block;
+    font-size: 2.2rem; /* صغرنا الخط سنة عشان يشيل الاسم كامل */
+    color: #2c3e50;
+    margin: 15px 0;
+    font-weight: bold;
+    white-space: nowrap; /* السطر ده بيمنع الاسم إنه ينزل تحت بعضه */
+    overflow: hidden;    /* عشان لو الاسم طويل جداً ميبوظش الشهادة */
+    text-overflow: ellipsis; /* بيحط نقط لو الاسم خرج بره الإطار */
+    border-bottom: 2px solid #333;
+    padding-bottom: 5px;
+    width: 100%; /* عشان يضمن إنه واخد عرض الشهادة كله */
+}/* تنسيق الدرجة */
+#certScore {
+    color: #e74c3c;
+    font-size: 1.5rem;
+    font-weight: bold;
+    background: #fdf2f2;
+    padding: 5px 15px;
+    border-radius: 8px;
+    border: 1px solid #ffcccc;
+}
+
+
+/* حركة ظهور الشهادة (Animation) */
+#certificateOverlay {
+    display: none; /* بتظهر بالجافا سكريبت */
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
 
         .options-scroll-panel::-webkit-scrollbar { width: 6px; }
         .options-scroll-panel::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
@@ -238,6 +279,24 @@
     font-weight: bold !important;
     border: none !important;
 }
+/* ده الكود اللي هيخلي الزرار شيك */
+.btn-home {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 25px;
+    background-color: #007bff; /* لون أزرق احترافي */
+    color: white !important;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn-home:hover {
+    background-color: #0056b3; /* اللون بيغمق لما تلمسه */
+}
     </style>
 </head>
 <body>
@@ -245,7 +304,7 @@
 <div id="login-screen" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #f1f3f4; z-index: 10000; display: flex; justify-content: center; align-items: center; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
     <div style="background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 90%; max-width: 450px; text-align: center; border-top: 6px solid #1a73e8;">
         <h2 style="color: #1a73e8; margin-bottom: 10px;">اختبار البرمجة والذكاء الاصطناعي</h2>
-        <p style="color: #555; margin-bottom: 25px;">مدرسة بورسعيد العسكرية</p>
+        <p style="color: #555; margin-bottom: 25px;">معاك فى مسار الهندسة</p>
         
         <input type="text" id="student-name" placeholder="ادخل اسمك الثلاثى" style="width: 100%; padding: 15px; margin-bottom: 15px; border: 2px solid #ddd; border-radius: 10px; font-size: 1rem; text-align: center; outline: none; transition: 0.3s;">
         
@@ -290,8 +349,10 @@
 <div id="certificateOverlay">
     <div class="certificate">
         <h1 style="color:var(--primary-blue)">شهادة تقدير</h1>
-        <p>يحيي مستر وليد خليل بطل البرمجة</p>
-        <h2 style="border-bottom:2px solid #333; display:inline-block; padding:0 20px" id="studentName">طالب متميز</h2>
+        <h2>يحيي مستر وليد خليل </h2>
+        <h2> بطل البرمجة</h2>
+
+        <h2 style="border-bottom:2px solid #333; display:inline-block; padding:0 20px" id="studentNameDisplay">طالب متميز</h2>
         <p>الدرجة النهائية: <span id="certScore">0</span> </p>
 <button onclick="window.location.href='index.html'" class="btn-home">الرجوع للرئيسية</button>    </div>
 <script>
@@ -719,8 +780,13 @@ else (let i = 0; i < 3; i++) {
             load();
        } else {
     // إرسال الرقم الصافي فقط للـ span اللي عملناه
-    document.getElementById('certScore').innerText = score; 
-    
+   document.getElementById('certScore').innerText = score + " من 15"; 
+    // اسحب الاسم اللي اتخزن وقت الدخول
+let sName = localStorage.getItem('currentStudent');
+
+// حط الاسم في العنصر اللي شايل كلمة "طالب متميز"
+// تأكد إنك مدي ID للعنصر ده في الـ HTML وليكن id="studentNameDisplay"
+document.getElementById('studentNameDisplay').innerText = sName ? sName : "طالب متميز";
     // إظهار الشهادة
     document.getElementById('certificateOverlay').style.display = 'flex';
 }
