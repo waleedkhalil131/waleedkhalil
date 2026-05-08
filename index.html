@@ -44,8 +44,14 @@
     <a href="links.html" class="neon-btn">🔗 الدخول لصفحة الروابط الهامة</a>
 </div>
 <div style="text-align: center; margin: 50px 0;">
-    <h2 style="color: #ffcf00;">جاهز تختبر معلوماتك في مسار الهندسة؟</h2>
+    <h2 style="color: #ffcf00;">جاهز تختبر معلوماتك في منصة كيريو؟</h2>
     <a href="exam.html" class="exam-btn">🚀 ابدأ امتحان البرمجة الآن</a>
+</div>
+<!-- زر دخول الامتحان الشامل - مستر وليد خليل -->
+<div class="main-wrapper-btn">
+    <a href="exam2.html" class="jump-btn">
+        <span>🚀 دخول الامتحان الشامل - نظري</span>
+    </a>
 </div>
 
 <style>
@@ -66,6 +72,39 @@
     color: #000;
     box-shadow: 0 0 30px #00f3ff;
     transform: scale(1.1);
+}
+/* تنسيق الحاوية لضمان الظهور فوق الخلفية */
+.main-wrapper-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    position: relative;
+    z-index: 100; /* عشان يظهر فوق أي صور خلفية */
+}
+
+/* تصميم الزرار المتوهج */
+.jump-btn {
+    display: inline-block;
+    padding: 20px 50px;
+    background-color: rgba(0, 0, 0, 0.7); /* خلفية سوداء شفافة لبروز النص */
+    color: #00ffcc; /* لون تركواز مثل شعار الذكاء الاصطناعي في صورتك */
+    text-decoration: none;
+    font-size: 22px;
+    font-weight: bold;
+    border: 3px solid #00ffcc;
+    border-radius: 50px;
+    box-shadow: 0 0 15px #00ffcc, inset 0 0 10px #00ffcc;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+}
+
+/* تأثير النطة والوهج عند الوقوف بالماوس */
+.jump-btn:hover {
+    transform: scale(1.1) translateY(-10px); /* النطة المطلوبة */
+    background-color: #00ffcc;
+    color: #000;
+    box-shadow: 0 0 40px #00ffcc;
 }
 </style>
 <!-- زرار تحميل ملف المراجعة -->

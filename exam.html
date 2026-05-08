@@ -141,17 +141,19 @@
             flex-shrink: 0;
         }
 
-        .btn-next {
-            background: #34a853;
-            color: white;
-            border: none;
-            padding: 10px 50px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-
+       #nextBtn {
+    display: none; /* هيفضل مخفي ويظهر بالجافا سكريبت */
+    background-color: #28a745 !important;
+    color: white !important;
+    padding: 10px 30px !important;
+    border-radius: 8px !important;
+    border: none !important;
+    cursor: pointer !important;
+    font-weight: bold !important;
+    font-size: 1.1rem !important;
+    /* تأكد إنه مش fixed عشان يظهر في مكانه الجديد */
+    position: static !important; 
+}
         #certificateOverlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -184,7 +186,7 @@
         width: 100%;
     }
     .option-card {
-        font-size: 0.85rem; /* تصغير الخط قليلاً ليتناسب مع الموبايل */
+        font-size: 0.60rem; /* تصغير الخط قليلاً ليتناسب مع الموبايل */
         padding: 15px;
     }
 }
@@ -219,17 +221,49 @@
         padding: 15px;
     }
 }
+#nextBtn {
+    /* السطر ده هو السر.. بيخلي الزرار يلتزم بمكانه في سطر 278 */
+    position: relative !important; 
+    top: 0 !important;
+    right: 0 !important;
+    transform: none !important;
+    
+    display: none; /* هيفضل مخفي لحد ما الطالب يدوس ابدأ */
+    margin: 20px auto !important; /* عشان ينزل تحت السؤال في النص */
+    background-color: #28a745 !important;
+    color: white !important;
+    padding: 10px 30px !important;
+    border-radius: 8px !important;
+    cursor: pointer !important;
+    font-weight: bold !important;
+    border: none !important;
+}
     </style>
 </head>
 <body>
+    <!-- 1. شاشة تسجيل الدخول -->
+<div id="login-screen" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #f1f3f4; z-index: 10000; display: flex; justify-content: center; align-items: center; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+    <div style="background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 90%; max-width: 450px; text-align: center; border-top: 6px solid #1a73e8;">
+        <h2 style="color: #1a73e8; margin-bottom: 10px;">اختبار البرمجة والذكاء الاصطناعي</h2>
+        <p style="color: #555; margin-bottom: 25px;">مدرسة بورسعيد العسكرية</p>
+        
+        <input type="text" id="student-name" placeholder="ادخل اسمك الثلاثى" style="width: 100%; padding: 15px; margin-bottom: 15px; border: 2px solid #ddd; border-radius: 10px; font-size: 1rem; text-align: center; outline: none; transition: 0.3s;">
+        
+        <input type="number" id="student-id" placeholder="ادخل رقم التليفون" style="width: 100%; padding: 15px; margin-bottom: 25px; border: 2px solid #ddd; border-radius: 10px; font-size: 1rem; text-align: center; outline: none; transition: 0.3s;">
+        
+        <button onclick="startStudentExam()" style="width: 100%; padding: 15px; background: #1a73e8; color: white; border: none; border-radius: 10px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.3s;">ابدأ الاختبار الآن</button>
+    </div>
+</div>
 
 <div class="header">
     <div style="display:flex; align-items:center; gap:10px">
         <img src="11.png" width="35" style="border-radius:50%">
         <span style="font-weight:bold">مستر وليد خليل</span>
     </div>
-    <div style="font-weight:bold">سؤال <span id="qIdxDisp">1</span> / 5</div>
+    <div style="font-weight:bold">سؤال <span id="qIdxDisp">1</span> / 15</div>
     <div id="timer" style="font-family:monospace; font-size:1.1rem">20:00</div>
+    
+</div>
 </div>
 
 <div class="main-layout">
@@ -241,26 +275,25 @@
             <div class="result-display">
                 <div class="result-inner" id="targetText"></div>
             </div>
-        </div>
-        <p style="text-align:center; color:#777; font-size:0.9rem;">إعداد مستر وليد خليل</p>
-    </div>
+        <div style="text-align: center; margin-top: 20px;">
+    <p style="color: #777; font-size: 0.9rem; margin-bottom: 10px;">إعداد مستر وليد خليل</p>
+    <button class="btn-next" id="nextBtn" onclick="handleNext()" style="display: none;; margin: 10px auto;">التالي ←</button>
+</div>
 </div>
 
 <div class="footer">
     <div style="font-weight:bold; color:#555">مادة البرمجة والذكاء الاصطناعي</div>
-    <button class="btn-next" id="nextBtn" style="visibility:hidden" onclick="handleNext()">التالي ⮕</button>
-</div>
+    
 
+
+</div>
 <div id="certificateOverlay">
     <div class="certificate">
         <h1 style="color:var(--primary-blue)">شهادة تقدير</h1>
         <p>يحيي مستر وليد خليل بطل البرمجة</p>
         <h2 style="border-bottom:2px solid #333; display:inline-block; padding:0 20px" id="studentName">طالب متميز</h2>
-        <p>الدرجة النهائية: <span id="certScore">0</span> / 5</p>
-        <button onclick="location.reload()" style="padding:10px 30px; cursor:pointer; background:var(--primary-blue); color:white; border:none;">خروج</button>
-    </div>
-</div>
-
+        <p>الدرجة النهائية: <span id="certScore">0</span> </p>
+<button onclick="window.location.href='index.html'" class="btn-home">الرجوع للرئيسية</button>    </div>
 <script>
     const questions = [
         {
@@ -271,7 +304,7 @@
                 `let trainCode = "A123";\nlet destination = "المحطة B";\n\nconsole.log("هذا القطار متجه إلى" destination);\nif ((destination == "المحطة B") || (trainCode == "B456")) {\n  console.log("هذا القطار لا يتوقف في المحطة A");\n}`,
                 `let trainCode = "A123";\nlet destination = "المحطة B";\n\nconsole.log("هذا القطار متجه إلى" destination);\nif ((destination == "المحطة B") && (trainCode == "B456")) {\n  console.log("هذا القطار لا يتوقف في المحطة A");\n}`
             ],
-            correct: 0
+            answer: 0
         },
         {
             target: "حالة العمل: يوم عمل",
@@ -281,18 +314,353 @@
                 `let closedDay = "15";\nlet today = "20";\nlet salesStatus = "يوم إغلاق اعتيادي";\n\nif (today == closedDay) {\n  salesStatus = "يوم عمل";\n}\nconsole.log("حالة العمل: " salesStatus);`,
                 `let closedDay = "15";\nlet today = "20";\nlet salesStatus = "يوم إغلاق اعتيادي";\n\nif (!(today == closedDay)) {\n  salesStatus = "يوم عمل";\n}\nconsole.log("حالة العمل: " salesStatus);`
             ],
-            correct: 1
+            answer: 1
         },
         {
             target: "وصل مستوى البطارية إلى 10%\nيرجى شحن الجهاز",
             options: [
                 `let currentBatteryColor = "أحمر";\nlet fullyChargedBatteryColor = "أزرق";\nlet lowBatteryLevel = "10%";\n\nif (currentBatteryColor != fullyChargedBatteryColor) {\n  console.log("وصل مستوى البطارية إلى" + lowBatteryLevel);\n  console.log("يرجى شحن الجهاز");\n} else {\n  console.log("مستوى البطارية كافٍ");\n}`,
-                `let currentBatteryColor = "أحمر";\nlet fullyChargedBatteryColor = "أزرق";\nlet lowBatteryLevel = "10%";\n\nif (currentBatteryColor != fullyChargedBatteryColor) {\n  console.log("وصل مستوى البطارية إلى" + " lowBatteryLevel");\n  console.log("يرجى شحن الجهاز");\n} else {\n  console.log("مستوى البطارية كافٍ");\n}`,
+                `let currentBatteryColor = "أحمر";\nlet fullyChargedBatteryColor = "أزرق";\nlet lowBatteryLevel = "10%";\n\nif (currentBatteryColor != fullyChargedBatteryColor) {\n  console.log("وصل مستوى البطارية إلى"  lowBatteryLevel");\n  console.log("يرجى شحن الجهاز");\n} else {\n  console.log("مستوى البطارية كافٍ");\n}`,
                 `let currentBatteryColor = "أحمر";\nlet fullyChargedBatteryColor = "أزرق";\nlet lowBatteryLevel = "10%";\n\nif (currentBatteryColor == fullyChargedBatteryColor) {\n  console.log("وصل مستوى البطارية إلى" + lowBatteryLevel);\n  console.log("يرجى شحن الجهاز");\n} else {\n  console.log("مستوى البطارية كافٍ");\n}`,
-                `let currentBatteryColor = "أحمر";\nlet fullyChargedBatteryColor = "أزرق";\nlet lowBatteryLevel = "10%";\n\nif (currentBatteryColor == fullyChargedBatteryColor) {\n  console.log("وصل مستوى البطارية إلى" + " lowBatteryLevel");\n  console.log("يرجى شحن الجهاز");\n} else {\n  console.log("مستوى البطارية كافٍ");\n}`
+                `let currentBatteryColor = "أحمر";\nlet fullyChargedBatteryColor = "أزرق";\nlet lowBatteryLevel = "10%";\n\nif (currentBatteryColor == fullyChargedBatteryColor) {\n  console.log("وصل مستوى البطارية إلى"  " lowBatteryLevel");\n  console.log("يرجى شحن الجهاز");\n} else {\n  console.log("مستوى البطارية كافٍ");\n}`
             ],
-            correct: 0
+            answer: 0
         },
+        {
+    question: "ما الكود الذي يعطي النتيجة التالية؟",
+    target: "userA\nuserB\nuserD",
+    options: [
+        `let userList = ["userA", "userB", "userC", "userD"];
+let deniedUser = "userC";
+for (let i = 0; i < 4; i++) {
+    if (userList[i] != deniedUser) {
+        console.log(userList[i]);
+    }
+}`,
+        `let userList = ["userA", "userB", "userC", "userD"];
+let deniedUser = "userC";
+for (let i = 0; i < 4; i++) {
+    if (userList[i] == deniedUser) {
+        console.log(userList[i]);
+    }
+}`,
+        `let userList = ["userA", "userB", "userC", "userD"];
+let deniedUser = "userC";
+for (let i = 0; i < 4; i++) {
+    if (userList[i] == deniedUser) {
+        console.log(userList[1]);
+    }
+}`,
+        `let userList = ["userA", "userB", "userC", "userD"];
+let deniedUser = "userC";
+for (let i = 0; i < 4; i++) {
+    if (userList[1] != deniedUser) {
+        console.log(userList[i]);
+    }
+}`
+    ],
+    answer: 0
+},
+{
+    question: "حدد البرنامج الذي يقوم بإخراج ما يلي:\nريسا حاضرة\nميكا حاضرة",
+    target: "ريسا حاضرة\nميكا حاضرة",
+    options: [
+        `let students = ["ريسا", "ميكا", "مي"];
+let absentStudent = "مي";
+
+for (let i = 0; i < 3; i++) {
+    if (students != absentStudent) {
+        console.log(students + " حاضرة");
+    }
+}`,
+        `let students = ["ريسا", "ميكا", "مي"];
+let absentStudent = "مي";
+
+for (let i = 0; i < 3; i++) {
+    if (students == absentStudent) {
+        console.log(students + " حاضرة");
+    }
+}`,
+        `let students = ["ريسا", "ميكا", "مي"];
+let absentStudent = "مي";
+
+for (let i = 0; i < 3; i++) {
+    if (students[i] == absentStudent) {
+        console.log(students[i] + " حاضرة");
+    }
+}`,
+        `let students = ["ريسا", "ميكا", "مي"];
+let absentStudent = "مي";
+
+for (let i = 0; i < 3; i++) {
+    if (students[i] != absentStudent) {
+        console.log(students[i] + " حاضرة");
+    }
+}`
+    ],
+    answer: 3 // الاختيار رقم 4 في الصورة هو الوحيد اللي كوده منطقي وصحيح لاستخدام الـ Index [i]
+},
+{
+    question: "حدد البرنامج الذي يقوم بإخراج ما يلي:\nجدول اليوم: طبيب الأسنان",
+    target: "جدول اليوم: طبيب الأسنان",
+    options: [
+        `let todaySchedules = ["اجتماع", "طبيب الأسنان"];
+let rescheduledItem = "اجتماع";
+
+for (let i = 0; i < 2; i++) {
+    if (!(todaySchedules == rescheduledItem)) {
+        console.log("جدول اليوم: " + todaySchedules);
+    }
+}`,
+        `let todaySchedules = ["اجتماع", "طبيب الأسنان"];
+let rescheduledItem = "اجتماع";
+
+for (let i = 0; i < 2; i++) {
+    if (todaySchedules[i] == rescheduledItem) {
+        console.log("جدول اليوم: " + todaySchedules[i]);
+    }
+}`,
+        `let todaySchedules = ["اجتماع", "طبيب الأسنان"];
+let rescheduledItem = "اجتماع";
+
+for (let i = 0; i < 2; i++) {
+    if (!(todaySchedules[i] == rescheduledItem)) {
+        console.log("جدول اليوم: " + todaySchedules[i]);
+    }
+}`,
+        `let todaySchedules = ["اجتماع", "طبيب الأسنان"];
+let rescheduledItem = "اجتماع";
+
+for (let i = 0; i < 2; i++) {
+    if (todaySchedules == rescheduledItem) {
+        console.log("جدول اليوم: " + todaySchedules);
+    }
+}`
+    ],
+    answer: 2 // الاختيار رقم 3 في الصورة هو الصحيح برمجياً ومنطقياً للوصول للنتيجة المطلوبة
+},
+{
+    question: "حدد البرنامج الذي يقوم بإخراج ما يلي:\nسأشتري حليباً\nسأشتري خبزاً\nسأشتري بيضاً",
+    target: "سأشتري حليباً\nسأشتري خبزاً\nسأشتري بيضاً",
+    options: [
+        `let shoppingList = ["حليباً", "خبزاً", "بيضاً"];
+
+for (i < 3) {
+    console.log("سأشتري " + shoppingList[i]);
+}`,
+        `let shoppingList = ["حليباً", "خبزاً", "بيضاً"];
+
+for (i < 3) {
+    console.log("سأشتري " + shoppingList);
+}`,
+        `let shoppingList = ["حليباً", "خبزاً", "بيضاً"];
+
+for (let i = 0; i < 3; i++) {
+    console.log("سأشتري " + shoppingList[i]);
+}`,
+        `let shoppingList = ["حليباً", "خبزاً", "بيضاً"];
+
+for (let i = 0; i < 3; i++) {
+    console.log("سأشتري " + shoppingList);
+}`
+    ],
+    answer: 2 // الاختيار رقم 3 في الصورة هو الوحيد الذي يحتوي على صيغة for loop كاملة وصحيحة مع استخدام الـ index [i]
+},
+{
+    question: "حدد البرنامج الذي يقوم بإخراج ما يلي:\nالنوع المفضل من الكتب: رواية\nالنوع المفضل من الكتب: كتاب أعمال\nالنوع المفضل من الكتب: كتاب أطفال",
+    target: "النوع المفضل من الكتب: رواية\nالنوع المفضل من الكتب: كتاب أعمال\nالنوع المفضل من الكتب: كتاب أطفال",
+    options: [
+        `let bookGenres = ["رواية", "كتاب أعمال", "كتاب أطفال"];
+
+for (let i = 0; i < bookGenres.length; i++) {
+    console.log("النوع المفضل من الكتب: " + bookGenres[i]);
+}`,
+        `let bookGenres = ["رواية", "كتاب أعمال", "كتاب أطفال"];
+
+for (let i = 0; i < bookGenres.length; i++) {
+    console.log("النوع المفضل من الكتب: " + bookGenres);
+}`,
+        `let bookGenres = ["رواية", "كتاب أعمال", "كتاب أطفال"];
+
+for (let i = 0; i < bookGenres; i++) {
+    console.log("النوع المفضل من الكتب: " + bookGenres[i]);
+}`,
+        `let bookGenres = ["رواية", "كتاب أعمال", "كتاب أطفال"];
+
+for (let i = 0; i < 3; i++) {
+    console.log("النوع المفضل من الكتب: " + bookGenres);
+}`
+    ],
+    answer: 0 // الاختيار الأول هو الصحيح لاستخدامه الخاصية length والوصول للعنصر عبر [i] بشكل سليم
+},
+{
+    question: "حدد البرنامج الذي يقوم بإخراج ما يلي:\nتحقق من حالة الحجز الحالية\nتم حجز 3 أشخاص\nتم حجز 8 أشخاص\nتم حجز 5 أشخاص",
+    target: "تحقق من حالة الحجز الحالية\nتم حجز 3 أشخاص\nتم حجز 8 أشخاص\nتم حجز 5 أشخاص",
+    options: [
+        `reservations = ["3", "8", "5"];
+
+console.log("تحقق من حالة الحجز الحالية");
+for (let i = 0; i < reservations.length; i++) {
+    console.log(" تم حجز " + reservations[i] + " أشخاص ");
+}`,
+        `reservations = ["3", "8", "5"];
+
+console.log("تحقق من حالة الحجز الحالية");
+for (let i = 0; i < reservations; i++) {
+    console.log(" تم حجز " + reservations[i] + " أشخاص ");
+}`,
+        `reservations = ["3", "8", "5"];
+
+console.log("تحقق من حالة الحجز الحالية");
+for (let i = 0; i < reservations; i++) {
+    console.log(" تم حجز " + [i] + " أشخاص ");
+}`,
+        `reservations = ["3", "8", "5"];
+
+console.log("تحقق من حالة الحجز الحالية");
+for (let i = 0; i < reservations.length; i++) {
+    console.log(" تم حجز " + [i] + " أشخاص ");
+}`
+    ],
+    answer: 0 // الاختيار الأول هو الصحيح لاستخدامه length والوصول للقيمة الصحيحة عبر [i]
+},
+{
+    question: "حدد البرنامج الذي يقوم بإخراج ما يلي:\nقائمة الفواكه التي تم شراؤها\nتفاح\nموز\nبرتقال",
+    target: "قائمة الفواكه التي تم شراؤها\nتفاح\nموز\nبرتقال",
+    options: [
+        `let fruitList = ["تفاح", "موز", "برتقال"];
+
+console.log("قائمة الفواكه التي تم شراؤها");
+for (let i = 0; i < 3; i++) {
+    console.log(fruitList[i]);
+}`,
+        `let fruitList = ["تفاح", "موز", "برتقال"];
+
+console.log("قائمة الفواكه التي تم شراؤها");
+for (let i = 0; i < 3; i++) {
+    console.log(fruitList);
+}`,
+        `let fruitList = ["تفاح", "موز", "برتقال"];
+
+console.log("قائمة الفواكه التي تم شراؤها");
+for (let i = 0; i < 3; i++) {
+    console.log([i]);
+}`,
+        `let fruitList = ["تفاح", "موز", "برتقال"];
+
+console.log("قائمة الفواكه التي تم شراؤها");
+for (let i = 0; i < 3; i++) {
+    console.log(fruitList[1]);
+}`
+    ],
+    answer: 0 // الاختيار الأول هو الوحيد الذي يطبع كل عنصر بمفرده بشكل صحيح
+},
+{
+    question: "حدد البرنامج الذي يقوم بإخراج ما يلي:\nتم تحديث قائمة المشتريات كما يلي\nحليب\nقهوة\nخبز",
+    target: "تم تحديث قائمة المشتريات كما يلي\nحليب\nقهوة\nخبز",
+    options: [
+        `let shoppingList = ["حليب", "شاي", "خبز"];
+shoppingList[1] = "قهوة";
+
+console.log("تم تحديث قائمة المشتريات كما يلي");
+for (let i = 0; i < 3; i++) {
+    console.log(shoppingList[i]);
+}`,
+        `let shoppingList = ["حليب", "شاي", "خبز"];
+shoppingList[1] = "قهوة";
+
+console.log("تم تحديث قائمة المشتريات كما يلي");
+for (let i = 0; i < 3; i++) {
+    console.log(shoppingList);
+}`,
+        `let shoppingList = ["حليب", "شاي", "خبز"];
+shoppingList = "قهوة";
+
+console.log("تم تحديث قائمة المشتريات كما يلي");
+for (let i = 0; i < 3; i++) {
+    console.log(shoppingList[i]);
+}`,
+        `let shoppingList = ["حليب", "شاي", "خبز"];
+shoppingList = "قهوة";
+
+console.log("تم تحديث قائمة المشتريات كما يلي");
+for (let i = 0; i < 3; i++) {
+    console.log(shoppingList);
+}`
+    ],
+    answer: 0 // الاختيار الأول هو الوحيد الذي استبدل العنصر رقم 1 (شاي) بـ (قهوة) وطبع العناصر بشكل صحيح
+},
+
+{
+    question: "حدد البرنامج الذي يقوم بإخراج ما يلي:\nاعرض سعة زجاجة الماء\n300",
+    target: "اعرض سعة زجاجة الماء\n300", // السطر ده هو اللي هيشيل كلمة undefined ويحط النتيجة مكانها
+    options: [
+        `let volumes = [0, 300];
+
+for (let i = 0; i < volumes.length; i++) {
+    if (!(volumes[i] == 0)) {
+        console.log("اعرض سعة زجاجة الماء");
+        console.log(volumes[i]);
+    }
+}`,
+        `let volumes = [0, 300];
+
+for (let i = 0; i < volumes.length; i++) {
+    if (volumes[i] == 0) {
+        console.log("اعرض سعة زجاجة الماء");
+        console.log(volumes[i]);
+    }
+}`,
+        `let volumes = [0, 300];
+
+for (let i = 0; i < volumes.length; i++) {
+    if (volumes[i] == 0) {
+        console.log("اعرض سعة زجاجة الماء");
+        console.log(volumes[i]);
+    }
+}`,
+        `let volumes = [0], [300];
+
+for (let i = 0; i < volumes.length; i++) {
+    if (!(volumes[i] == 0)) {
+        console.log("اعرض سعة زجاجة الماء");
+        console.log(volumes[i]);
+    }
+}`
+    ],
+    answer: 0 // الاختيار الأول هو الصحيح لأنه يستخدم ! لنفي الصفر (يعني يختار الـ 300)
+},
+{
+    question: "حدد البرنامج الذي يقوم بإخراج ما يلي:\nالمواد التي سيتم دراستها اليوم كما يلي\nعلوم\nرياضيات\nاللغة الإنجليزية",
+    target: "المواد التي سيتم دراستها اليوم كما يلي\nعلوم\nرياضيات\nاللغة الإنجليزية",
+    options: [
+        `let studySubjects = ["علوم", "رياضيات", "اللغة الإنجليزية"];
+
+console.log("المواد التي سيتم دراستها اليوم كما يلي");
+for (let i = 0; i < 3; i++) {
+    console.log(studySubjects[i]);
+}`,
+        `let studySubjects = ["اللغة الانجليزية"]["رياضيات"]["علوم"];
+
+console.log("المواد التي سيتم دراستها اليوم كما يلي");
+for (let i = 0; i < 3; i++) {
+    console.log(studySubjects[i]);
+}`,
+        `let studySubjects = ["علوم", "رياضيات", "اللغة الإنجليزية"];
+
+console.log("المواد التي سيتم دراستها اليوم كما يلي");
+else (let i = 0; i < 3; i++) {
+    console.log(studySubjects[i]);
+}`,
+        `let studySubjects = ["علوم", "رياضيات", "اللغة الإنجليزية"];
+
+console.log("المواد التي سيتم دراستها اليوم كما يلي");
+else (let i = 0; i < 3; i++) {
+    console.log(studySubjects[i]);
+}`
+    ],
+    answer: 1 // الخيار رقم 2 في الصورة هو الصحيح برمجياً في بناء الـ loop
+},
         {
             target: "سيتم إرشادك إلى الغرفة الكبيرة\nاليوم يوجد خصم على المشروبات",
             options: [
@@ -301,7 +669,7 @@
                 `let guestCount = 14;\nlet visitDay = "يوم عمل";\n\nif ((guestCount >= 8) && (guestCount <= 16)) {\n  console.log("سيتم إرشادك إلى الغرفة الكبيرة");\n}\nif (visitDay == "عطلة") {\n  console.log("اليوم يوجد خصم على المشروبات");\n}`,
                 `let guestCount = 14;\nlet visitDay = "يوم عمل";\n\nif ((guestCount >= 8) (guestCount <= 16)) {\n  console.log("سيتم إرشادك إلى الغرفة الكبيرة");\n}\nif (visitDay == "عطلة") {\n  console.log("اليوم يوجد خصم على المشروبات");\n}`
             ],
-            correct: 0
+            answer: 0
         },
         {
             target: "طماطم غير متوفرة\nالمكونات المتوفرة في المتجر كما يلي\nملفوف\nبروكسي\nكرفس",
@@ -311,7 +679,7 @@
                 `let ingredients = ["طماطم", "ملفوف", "بروكسي", "كرفس"];\nlet soldOutIngredient = "طماطم";\n\nconsole.log(soldOutIngredient + " غير متوفرة ");\nconsole.log("المكونات المتوفرة في المتجر كما يلي");\nfor (let i = 0; i < 4; i++) {\n  if (!(ingredients[i] == soldOutIngredient)) {\n    console.log(ingredients[i]);\n  }\n}`,
                 `let ingredients = ["طماطم", "ملفوف", "بروكسي", "كرفس"];\nlet soldOutIngredient = "طماطم";\n\nconsole.log(soldOutIngredient + " غير متوفرة ");\nconsole.log("المكونات المتوفرة في المتجر كما يلي");\nfor (let i = 0; i < 4; i++) {\n  if (ingredients[i] == soldOutIngredient) {\n    console.log(ingredients[i]);\n  }\n}`
             ],
-            correct: 2
+            answer: 2
         }
     ];
 
@@ -344,18 +712,70 @@
     }
 
     function handleNext() {
-        if(selectedIdx === questions[current].correct) score++;
+        if(selectedIdx === questions[current].answer) score++;
         if(current < questions.length - 1) {
             current++;
             selectedIdx = null;
             load();
-        } else {
-            document.getElementById('certScore').innerText = score;
-            document.getElementById('certificateOverlay').style.display = 'flex';
-        }
+       } else {
+    // إرسال الرقم الصافي فقط للـ span اللي عملناه
+    document.getElementById('certScore').innerText = score; 
+    
+    // إظهار الشهادة
+    document.getElementById('certificateOverlay').style.display = 'flex';
+}
     }
+// ... نهاية الدالة handleNext اللي عندك ...
+    
 
-    load();
+
+// ضيف الدالة الجديدة هنا في السطر 370
+function startStudentExam() {
+    const sName = document.getElementById('student-name').value.trim();
+    const sId = document.getElementById('student-id').value.trim();
+
+    if (sName.length < 10) {
+        alert("يرجى كتابة الاسم الثلاثى بشكل صحيح يا بطل!");
+        return;
+    }
+    if (sId === "") {
+        alert("يرجى إدخال رقم التليفون");
+        return;
+    }
+    // السطر الجديد اللي هيظهر الزرار أول ما الامتحان يبدأ
+    document.getElementById('nextBtn').style.display = 'block';
+
+    document.getElementById('login-screen').style.display = 'none';
+    localStorage.setItem('currentStudent', sName);
+    
+    load(); // دي اللي هتشغل الامتحان فعلياً بعد ما الطالب يدوس على الزرار
+}
+// تحديد الوقت بالدقائق
+let timeInMinutes = 40; 
+let currentTime = timeInMinutes * 60;
+
+const timerElement = document.getElementById('timer');
+
+function updateTimer() {
+    const minutes = Math.floor(currentTime / 60);
+    let seconds = currentTime % 60;
+    
+    // إضافة صفر لو الثواني أقل من 10
+    seconds = seconds < 10 ? '0' + seconds : seconds;
+
+    timerElement.innerHTML = `${minutes}:${seconds}`;
+
+    if (currentTime > 0) {
+        currentTime--;
+    } else {
+        alert("انتهى وقت الاختبار!");
+        // هنا ممكن تضيف كود ينهي الامتحان تلقائياً
+    }
+}
+
+// تشغيل الدالة كل ثانية
+setInterval(updateTimer, 1000);
+
 </script>
 </body>
 </html>
