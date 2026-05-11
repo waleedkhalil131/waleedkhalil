@@ -638,7 +638,7 @@ for (let i = 0; i < 3; i++) {
 shoppingList = "قهوة";
 
 console.log("تم تحديث قائمة المشتريات كما يلي");
-for (let i = 0; i < 3; i++) {
+for (let i = 0; i < 3; i+) {
     console.log(shoppingList[i]);
 }`,
         `let shoppingList = ["حليب", "شاي", "خبز"];
@@ -646,7 +646,7 @@ shoppingList = "قهوة";
 
 console.log("تم تحديث قائمة المشتريات كما يلي");
 for (let i = 0; i < 3; i++) {
-    console.log(shoppingList);
+    console.log(i);
 }`
     ],
     answer: 0 // الاختيار الأول هو الوحيد الذي استبدل العنصر رقم 1 (شاي) بـ (قهوة) وطبع العناصر بشكل صحيح
@@ -720,7 +720,7 @@ else (let i = 0; i < 3; i++) {
     console.log(studySubjects[i]);
 }`
     ],
-    answer: 1 // الخيار رقم 2 في الصورة هو الصحيح برمجياً في بناء الـ loop
+    answer: 0 // الخيار رقم 2 في الصورة هو الصحيح برمجياً في بناء الـ loop
 },
         {
             target: "سيتم إرشادك إلى الغرفة الكبيرة\nاليوم يوجد خصم على المشروبات",
@@ -735,7 +735,7 @@ else (let i = 0; i < 3; i++) {
         {
             target: "طماطم غير متوفرة\nالمكونات المتوفرة في المتجر كما يلي\nملفوف\nبروكسي\nكرفس",
             options: [
-                `let ingredients = ["طماطم", "ملفوف", "بروكسي", "كرفس"];\nlet soldOutIngredient = "طماطم";\n\nconsole.log(soldOutIngredient + " غير متوفرة ");\nconsole.log("المكونات المتوفرة في المتجر كما يلي");\nfor (let i = 0; i < 4; i++) {\n  if (!(ingredients[i] == soldOutIngredient)) {\n    console.log(ingredients[i]);\n  }\n}`,
+                `let ingredients = ["طماطم", "ملفوف", "بروكسي", "كرفس"];\nlet soldOutIngredient = "طماطم";\n\nconsole.log(soldOutIngredient + " غير متوفرة ");\nconsole.log("المكونات المتوفرة في المتجر كما يلي");\nfor (let i = 0; i < 4; i++) {\n  if (!(ingredients[i] == soldOutIngredient)) {\n    console.log(ingredients[1]);\n  }\n}`,
                 `let ingredients = ["طماطم", "ملفوف", "بروكسي", "كرفس"];\nlet soldOutIngredient = "طماطم";\n\nconsole.log(soldOutIngredient + " غير متوفرة ");\nconsole.log("المكونات المتوفرة في المتجر كما يلي");\nfor (let i = 0; i < 4; i++) {\n  if ((ingredients[i] == soldOutIngredient)) {\n    console.log(ingredients[i]);\n  }\n}`,
                 `let ingredients = ["طماطم", "ملفوف", "بروكسي", "كرفس"];\nlet soldOutIngredient = "طماطم";\n\nconsole.log(soldOutIngredient + " غير متوفرة ");\nconsole.log("المكونات المتوفرة في المتجر كما يلي");\nfor (let i = 0; i < 4; i++) {\n  if (!(ingredients[i] == soldOutIngredient)) {\n    console.log(ingredients[i]);\n  }\n}`,
                 `let ingredients = ["طماطم", "ملفوف", "بروكسي", "كرفس"];\nlet soldOutIngredient = "طماطم";\n\nconsole.log(soldOutIngredient + " غير متوفرة ");\nconsole.log("المكونات المتوفرة في المتجر كما يلي");\nfor (let i = 0; i < 4; i++) {\n  if (ingredients[i] == soldOutIngredient) {\n    console.log(ingredients[i]);\n  }\n}`

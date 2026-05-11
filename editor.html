@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مختبر البرمجة | مستر وليد خليل</title>
+    <style>
+        :root { --primary-color: #007bff; --bg-dark: #1e1e1e; --panel-bg: #2d2d2d; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg-dark); margin: 0; color: white; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+        .header { background: var(--primary-color); padding: 10px 25px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); z-index: 10; }
+        .main-container { display: flex; flex: 1; height: calc(100vh - 55px); }
+        .editor-side { flex: 1; display: flex; flex-direction: column; border-left: 2px solid #444; }
+        .editor-box { display: flex; flex-direction: column; flex: 1; position: relative; }
+        .label { background: #333; color: var(--primary-color); padding: 5px 15px; font-size: 12px; font-weight: bold; border-bottom: 1px solid #1e1e1e; }
+        textarea { flex: 1; background: var(--panel-bg); color: #d4d4d4; border: none; padding: 15px; font-family: 'Consolas', monospace; font-size: 15px; outline: none; resize: none; direction: ltr; }
+        .preview-side { flex: 1; background: white; display: flex; flex-direction: column; }
+        iframe { flex: 1; border: none; background: white; }
+        .controls { display: flex; gap: 10px; }
+        .btn { border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        .btn-run { background: #28a745; color: white; }
+        .btn-clear { background: #dc3545; color: white; }
+        #status-bar { background: #333; padding: 8px 15px; font-size: 13px; font-weight: bold; border-top: 1px solid #444; transition: 0.3s; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h2>🚀 مختبر البرمجة - مستر وليد خليل</h2>
+    <div class="controls">
+        <button class="btn btn-clear" onclick="clearAll()">مسح الكل 🗑️</button>
+        <button class="btn btn-run" onclick="run()">تحديث النتيجة ▶</button>
+    </div>
+</div>
+
+<div class="main-container">
+    <div class="editor-side">
+        <div class="editor-box">
+            <span class="label">HTML Code</span>
+            <textarea id="html-code" oninput="run()" placeholder="اكتب كود الـ HTML هنا..." spellcheck="false"></textarea>
+        </div>
+        <div class="editor-box" style="border-top: 2px solid #1e1e1e;">
+            <span class="label">CSS Code</span>
+            <textarea id="css-code" oninput="run()" placeholder="اكتب كود الـ CSS هنا..." spellcheck="false"></textarea>
+        </div>
+        <div id="status-bar">الحالة: جاهز للكتابة..</div>
+    </div>
+    <div class="preview-side">
+        <div class="label" style="background: #eee; color: #333;">Live Preview (النتيجة الحية)</div>
+        <iframe id="output"></iframe>
+    </div>
+</div>
+
+<script>
+    function run() {
+        const html = document.getElementById("html-code").value;
+        const css = document.getElementById("css-code").value;
+        const output = document.getElementById("output").contentWindow.document;
+        const statusBar = document.getElementById("status-bar");
+
+        function validateHTML(str) {
+            if (!str.trim()) return null;
+            // 1. فحص إغلاق الأقواس (يمسك غلطة <img بدون >)
+            const openAngles = (str.match(/</g) || []).length;
+            const closeAngles = (str.match(/>/g) || []).length;
+            if (openAngles !== closeAngles) return "تأكد من إغلاق جميع الأقواس < >";
+
+            // 2. فحص وسم الصور (يمسك غلطة nimg بدون src)
+            if (str.toLowerCase().includes('<img') && !str.toLowerCase().includes('src=')) {
+                return "وسم الصورة <img> يحتاج لمصدر src=\"\"";
+            }
+
+            // 3. فحص تناسق الفتح والإغلاق (يمسك غلطة <h1> بدون </h1>)
+            const stack = [];
+            const tagRegex = /<(\/?[a-z1-6]+)[^>]*>/gi;
+            let match;
+            while ((match = tagRegex.exec(str)) !== null) {
+                let tag = match[1].toLowerCase();
+                if (tag.startsWith('/')) {
+                    let closing = tag.substring(1);
+                    if (stack.length === 0 || stack.pop() !== closing) return `خطأ في إغلاق الوسم </${closing}>`;
+                } else {
+                    if (!['br', 'hr', 'img', 'input', 'meta', 'link'].includes(tag)) {
+                        stack.push(tag);
+                    }
+                }
+            }
+            if (stack.length > 0) return `الوسم <${stack.pop()}> مفتوح ولم يتم إغلاقه`;
+            return null;
+        }
+
+        const error = validateHTML(html);
+        if (error) {
+            statusBar.innerHTML = `⚠️ ${error}`;
+            statusBar.style.color = "#ff4d4d";
+        } else {
+            statusBar.innerHTML = "✅ كود سليم واحترافي.. عاش يا مبرمج!";
+            statusBar.style.color = "#28a745";
+        }
+
+        const finalCode = `<!DOCTYPE html><html dir="rtl"><head><meta charset="UTF-8"><style>body{font-family:sans-serif;margin:20px;}${css}</style></head><body>${html}</body></html>`;
+        output.open();
+        output.write(finalCode);
+        output.close();
+    }
+
+    function clearAll() {
+        if(confirm("هل تريد مسح كل الأكواد والبدء من جديد؟")) {
+            document.getElementById("html-code").value = "";
+            document.getElementById("css-code").value = "";
+            run();
+        }
+    }
+    window.onload = run;
+</script>
+</body>
+</html>
